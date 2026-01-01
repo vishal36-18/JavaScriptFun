@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Generate a <br><span>Random Password</span></h1>
+        <div class="password">
+            <input id="inputPassword" type="text">
+            <p onclick="copy()">copy</p>
+        </div>
+        <div class="generate" onclick="generatePassword()">Generate Password</div>
+    </div>
+
+    <script>
+        let inputPassword = document.getElementById("inputPassword");
+        let generate = document.getElementById("generate");
+
+        const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const lowerCase = "abcdefghijklmnopqrstuvwxyz";
+        const digits = "0123456789";
+        const char = "!@#$%^&*()-_+={}|\:;'<>.?/";
+
+        const allChars = upperCase + lowerCase + digits + char;
+
+        let length = 12;
+
+        function generatePassword() {
+            let password = "";
+            password += upperCase[Math.floor(Math.random() * upperCase.length)];
+            password += lowerCase[Math.floor(Math.random() * lowerCase.length)];
+            password += digits[Math.floor(Math.random() * digits.length)];
+            password += char[Math.floor(Math.random() * char.length)];
+
+            while (password.length < length) {
+                password += allChars[Math.floor(Math.random() * allChars.length)];
+            }
+
+            inputPassword.value = password;
+        }
+
+        function copy() {
+            if (inputPassword.value === "") {
+                alert("Generate a password first!");
+                return;
+            }
+
+            navigator.clipboard.writeText(inputPassword.value)
+                .then(() => {
+                    alert("Password copied to clipboard!");
+                })
+                .catch(err => {
+                    console.error("Failed to copy:", err);
+                });
+
+            inputPassword.value = ""                
+        }
+
+    </script>
+</body>
+
+</html>
