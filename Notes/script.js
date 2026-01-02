@@ -38,3 +38,10 @@ notesContainer.addEventListener("click", (e) => {
 notesContainer.addEventListener("input", () => {
     updateStorage();
 });
+
+document.addEventListener("keydown", e => {
+    if(e.key === "Enter"){
+        document.execCommand("insertLineBreak");
+        e.preventDefault();
+    }
+})
